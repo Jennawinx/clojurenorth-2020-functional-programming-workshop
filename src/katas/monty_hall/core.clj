@@ -4,7 +4,7 @@
 (def doors [:car :goat :goat])
 
 (defn new-game
-  "Randomize car goat gaot"
+  "Randomize door prizes"
   []
   (shuffle doors))
 
@@ -18,7 +18,7 @@
   [switch?]
   (let [game        (new-game)
         user-door   (get-user-selection game)
-        left        (->
+        door-left   (->
                       ;; The host will always remove a goat,
                       ;; set to remove the extra goat (lazy soln)
                       (set game)
@@ -27,7 +27,7 @@
                       (disj user-door)
                       (first))]
     (if switch?
-      (= :car left)
+      (= :car door-left)
       (= :car user-door))))
 
 (defn games-won
