@@ -1,17 +1,21 @@
 (ns katas.monty-hall.core)
 
+;; Prizes behind the doors
 (def doors [:car :goat :goat])
 
-;; Randomize car goat gaot
-(defn new-game []
+(defn new-game
+  "Randomize car goat gaot"
+  []
   (shuffle doors))
 
-;; Randomize user selection
-(defn get-user-selection [choices]
+(defn get-user-selection
+  "Randomize user selection"
+  [choices]
   (nth choices (rand-int (count choices))))
 
-;; Configure whether the user will switch doors and get result
-(defn wins? [switch?]
+(defn wins?
+  "Determines whether user will win with the strategy this game"
+  [switch?]
   (let [game        (new-game)
         user-door   (get-user-selection game)
         left        (->
@@ -26,9 +30,9 @@
       (= :car left)
       (= :car user-door))))
 
-;; Play game x times and report the # of times won
-(defn games-won [times switch?]
-  ;; maybe there's a better function than reduce
+(defn games-won
+  "Play game x times and report the # of times won"
+  [times switch?]
   (reduce (fn [result _]
             (if (wins? switch?)
               (inc result)
@@ -36,8 +40,9 @@
           0
           (range times)))
 
-;; Report results of monty hall
-(defn simulate []
+(defn simulate
+  "Report results of monty hall"
+  []
   (let [times 1000
         switch-wins (games-won times true)
         stay-wins (games-won times false)]
